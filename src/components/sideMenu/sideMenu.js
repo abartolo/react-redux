@@ -6,7 +6,6 @@ import {
     Typography,
 } from 'material-ui';
 import Drawer from 'material-ui/Drawer';
-import Button from 'material-ui/Button';
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import HomeIcon from 'material-ui-icons/Home';
@@ -44,10 +43,11 @@ export default class SideMenu extends Component {
     render() {
         return (
             <Drawer
+                elevation={1}
                 anchor="left"
-                open={this.state.open}
-                docked={this.state.docked}
-                onClick={() => { this.toggleDrawer() }}
+                open={this.props.open}
+                docked={this.props.docked}
+                onClick={() => { this.props.onCloseSideMenu() }}
             >
                 <AppBar id="sidemenu-appbar" position="static" color="default">
                     <Toolbar>
@@ -58,28 +58,22 @@ export default class SideMenu extends Component {
                 </AppBar>
                 <Divider />
                 <List id="sidemenu-list" disablePadding>
-                    <Route path="/" exact="true" children={({ match, history, ...props }) => {
-                        return (
-                            <ListItem button className={match ? 'sidemenu-link-selected' : ''} onClick={() => { history.push('/') }}>
-                                <ListItemIcon>
-                                    <HomeIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="Home" />
-                            </ListItem>
-                        )
-                    }
-                    } />
-                    <Route path="/todo" children={({ match, history, ...props }) => {
-                        return (
-                            <ListItem button className={match ? 'sidemenu-link-selected' : ''} onClick={() => { history.push('/todo') }}>
-                                <ListItemIcon>
-                                    <DoneAllIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="Todo" />
-                            </ListItem>
-                        )
-                    }
-                    } />
+                    <Route path="/" exact={true} children={({ match, history, ...props }) => (
+                        <ListItem button className={match ? 'sidemenu-link-selected' : ''} onClick={() => { history.push('/') }}>
+                            <ListItemIcon>
+                                <HomeIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Home" />
+                        </ListItem>
+                    )} />
+                    <Route path="/todo" children={({ match, history, ...props }) => (
+                        <ListItem button className={match ? 'sidemenu-link-selected' : ''} onClick={() => { history.push('/todo') }}>
+                            <ListItemIcon>
+                                <DoneAllIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Todo" />
+                        </ListItem>
+                    )} />
                 </List>
             </Drawer >
         );

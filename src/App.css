@@ -4,7 +4,13 @@
     min-height: 100vh;
 }
 #app-sidemenu-container{
+
+}
+.app-sidemenu-container-desktop{
     width: 250px;
+}
+.app-sidemenu-container-mobile{
+    width: 0;
 }
 #app-content-container{
     padding: 0;

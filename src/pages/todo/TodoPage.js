@@ -21,12 +21,15 @@ class TodoPage extends Component {
     onAddTask(name) {
         this.props.actions.addTask(name);
     }
+    onGoHome(name) {
+        this.props.history.push('/');
+    }
 
     render() {
         return (
             <div>
                 <div id="create-task-container">
-                    <CreateTask onAddTask={(name) => this.onAddTask(name)} />
+                    <CreateTask onAddTask={(name) => this.onAddTask(name)} onGoHome={() => this.onGoHome()} />
                 </div>
                 <div id="task-list-container">
                     <TasksList tasks={this.props.tasks}

@@ -50,6 +50,11 @@ export default class CreateTask extends Component {
                                     Add
                                 </Button>
                             </Grid>
+                            <Grid item>
+                                <Button color="accent" onClick={() => this.props.onGoHome()}>
+                                    Home
+                                </Button>
+                            </Grid>
                         </Grid>
                     </Paper>
                 </Grid>

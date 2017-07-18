@@ -3,8 +3,7 @@ import { MuiThemeProvider } from 'material-ui/styles';
 import { Grid } from 'material-ui';
 import {
   BrowserRouter,
-  Route,
-  Link
+  Route
 } from 'react-router-dom';
 import Header from './components/header/header';
 import SideMenu from './components/sideMenu/sideMenu';
@@ -17,11 +16,47 @@ class App extends Component {
     super(props);
     this.title = 'Todo Application';
     this.state = {
-      sideMenu: {
-        open: false,
-        docked: true,
-      }
+      sideMenuOpen: true,
+      sideMenuDocked: true,
+      displaySideMenuToggle: false,
     };
+  }
+
+  componentDidMount() {
+    // Setup layout based on window size
+    this.setupLayout();
+    window.addEventListener('resize', () => this.setupLayout());
+  }
+
+  toggleSideMenu() {
+    console.log("Called toggleSideMenu()");
+    this.setState({
+      sideMenuOpen: !this.state.sideMenuOpen
+    });
+  }
+
+  closeSideMenu() {
+    this.setState({
+      sideMenuOpen: false
+    });
+  }
+
+  setupLayout() {
+    if (window.innerWidth >= 960 && this.state.sideMenuDocked !== true) {
+      console.log("Dimensions - Greater than 960", window.innerWidth);
+      this.setState({
+        sideMenuOpen: true,
+        sideMenuDocked: true,
+        displaySideMenuToggle: false
+      });
+    } else if (window.innerWidth < 960 && this.state.sideMenuDocked === true) {
+      console.log("Dimensions - Less than 960", window.innerWidth);
+      this.setState({
+        sideMenuOpen: false,
+        sideMenuDocked: false,
+        displaySideMenuToggle: true
+      });
+    }
   }
 
   render() {
@@ -33,16 +68,11 @@ class App extends Component {
             direction="row"
             align="stretch"
             justify="flex-start">
-            <Grid id="app-sidemenu-container" item>
-              <SideMenu />
-            </Grid>
+            <div id="app-sidemenu-container" className={this.state.sideMenuDocked? 'app-sidemenu-container-desktop':'app-sidemenu-container-mobile'}>
+              <SideMenu open={this.state.sideMenuOpen} docked={this.state.sideMenuDocked} onCloseSideMenu={() => this.closeSideMenu()} />
+            </div>
             <Grid id="app-content-container" item xs>
-              <Header titleText="Tapsium Portal" />
-              <ul>
-                <li><Link to="/">Home</Link></li>
-                <li><Link to="/todo">Todo</Link></li>
-              </ul>
-              <hr />
+              <Header titleText="Tapsium Portal" displayHamburger={this.state.displaySideMenuToggle} onToggleSideMenu={() => this.toggleSideMenu()} />
               <Route exact path="/" component={HomePage} />
               <Route path="/todo" component={TodoPage} />
             </Grid>
