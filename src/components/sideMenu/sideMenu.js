@@ -10,6 +10,7 @@ import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import HomeIcon from 'material-ui-icons/Home';
 import DoneAllIcon from 'material-ui-icons/DoneAll';
+import Routes from '../../routes';
 import './sideMenu.css';
 
 export default class SideMenu extends Component {
@@ -58,22 +59,18 @@ export default class SideMenu extends Component {
                 </AppBar>
                 <Divider />
                 <List id="sidemenu-list" disablePadding>
-                    <Route path="/" exact={true} children={({ match, history, ...props }) => (
-                        <ListItem button className={match ? 'sidemenu-link-selected' : ''} onClick={() => { history.push('/') }}>
-                            <ListItemIcon>
-                                <HomeIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Home" />
-                        </ListItem>
-                    )} />
-                    <Route path="/todo" children={({ match, history, ...props }) => (
-                        <ListItem button className={match ? 'sidemenu-link-selected' : ''} onClick={() => { history.push('/todo') }}>
-                            <ListItemIcon>
-                                <DoneAllIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Todo" />
-                        </ListItem>
-                    )} />
+                    {
+                        Routes.map((route,index) =>(
+                            <Route key={index} path={route.path} exact={route.exact} children={({ match, history, ...props }) => (
+                                <ListItem button className={match ? 'sidemenu-link-selected' : ''} onClick={() => { history.push(route.path) }}>
+                                    <ListItemIcon>
+                                        <HomeIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary={route.title} />
+                                </ListItem>
+                            )} />
+                        ))
+                    }
                 </List>
             </Drawer >
         );

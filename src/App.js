@@ -74,7 +74,7 @@ class App extends Component {
             <Grid id="app-content-container" item xs>
               <Header titleText="Tapsium Portal" displayHamburger={this.state.displaySideMenuToggle} onToggleSideMenu={() => this.toggleSideMenu()} />
               <Route exact path="/" component={HomePage} />
-              <Route path="/todo" component={TodoPage} />
+              <Route path="/todos" component={TodoPage} />
             </Grid>
           </Grid>
         </BrowserRouter>
