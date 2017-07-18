@@ -1,3 +1,9 @@
 #sidemenu-appbar{
     box-shadow: none;
 }
+#sidemenu-list{
+    width: 250px;
+}
+.sidemenu-link-selected{
+    background-color: #EEEEEE;
+}

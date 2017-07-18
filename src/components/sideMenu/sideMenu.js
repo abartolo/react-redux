@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
 import {
     AppBar,
     Toolbar,
@@ -26,6 +27,20 @@ export default class SideMenu extends Component {
         this.setState({ open: !this.state.open });
     };
 
+    navigateTo = () => {
+        console.log("toggleDrawer", !this.state.open);
+        this.setState({ open: !this.state.open });
+    };
+
+    navigationLinks = ({ title, history }) => (
+        <button
+            type="button"
+            onClick={() => history.push('/my-new-location')}
+        >
+            {title}
+        </button>
+    );
+
     render() {
         return (
             <Drawer
@@ -42,19 +57,29 @@ export default class SideMenu extends Component {
                     </Toolbar>
                 </AppBar>
                 <Divider />
-                <List style={{ width: '250px' }} disablePadding>
-                    <ListItem button>
-                        <ListItemIcon>
-                            <HomeIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Home" />
-                    </ListItem>
-                    <ListItem button>
-                        <ListItemIcon>
-                            <DoneAllIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Todo" />
-                    </ListItem>
+                <List id="sidemenu-list" disablePadding>
+                    <Route path="/" exact="true" children={({ match, history, ...props }) => {
+                        return (
+                            <ListItem button className={match ? 'sidemenu-link-selected' : ''} onClick={() => { history.push('/') }}>
+                                <ListItemIcon>
+                                    <HomeIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Home" />
+                            </ListItem>
+                        )
+                    }
+                    } />
+                    <Route path="/todo" children={({ match, history, ...props }) => {
+                        return (
+                            <ListItem button className={match ? 'sidemenu-link-selected' : ''} onClick={() => { history.push('/todo') }}>
+                                <ListItemIcon>
+                                    <DoneAllIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Todo" />
+                            </ListItem>
+                        )
+                    }
+                    } />
                 </List>
             </Drawer >
         );
