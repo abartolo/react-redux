@@ -1,51 +1,35 @@
 import React, { Component } from 'react';
-
-import Header from '../../components/header/header';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import CreateTask from '../../components/createTask/createTask';
 import TasksList from '../../components/tasksList/tasksList';
-import './home.css';
-import store from '../../todoStore';
+import './TodoPage.css';
+import * as todoActions from '../../actions/todoActions';
 
-export default class Home extends Component {
+class TodoPage extends Component {
     constructor(props) {
         super(props);
         this.title = 'Todo Application';
-        this.state = store.getState();
-
-        store.subscribe(() => {
-            console.log(store.getState());
-            this.setState(store.getState());
-        });
     }
 
     onToggleCheck(id) {
-        store.dispatch({
-            type: 'TOGGLE_TASK',
-            taskId: id
-        });
+        this.props.actions.toggleTask(id);
     }
     onDelete(id) {
-        store.dispatch({
-            type: 'DELETE_TASK',
-            taskId: id
-        });
+        this.props.actions.deleteTask(id);
     }
     onAddTask(name) {
-        store.dispatch({
-            type: 'ADD_TASK',
-            taskName: name
-        });
+        this.props.actions.addTask(name);
     }
 
     render() {
         return (
             <div>
-                <Header titleText={this.title} />
                 <div id="create-task-container">
                     <CreateTask onAddTask={(name) => this.onAddTask(name)} />
                 </div>
                 <div id="task-list-container">
-                    <TasksList tasks={this.state.tasks}
+                    <TasksList tasks={this.props.tasks}
                         onToggleCheck={(id) => this.onToggleCheck(id)}
                         onDelete={(id) => this.onDelete(id)} />
                 </div>
@@ -53,3 +37,16 @@ export default class Home extends Component {
         );
     }
 }
+
+function mapStateToProps(state, ownProps) {
+    return {
+        tasks: state.tasks
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators(todoActions, dispatch)
+    };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(TodoPage);
