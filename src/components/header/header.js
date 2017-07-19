@@ -7,6 +7,7 @@ import {
     IconButton,
 } from 'material-ui';
 import MenuIcon from 'material-ui-icons/Menu';
+import './header.css';
 
 class Header extends Component {
 
@@ -23,7 +24,7 @@ class Header extends Component {
 
     render() {
         return (
-            <AppBar position="static">
+            <AppBar id="header-container" position="fixed">
                 <Toolbar>
                     <IconButton style={{ display: this.props.displayHamburger ? '' : 'none' }} color="contrast" aria-label="Menu" onClick={this.props.onToggleSideMenu}>
                         <MenuIcon />

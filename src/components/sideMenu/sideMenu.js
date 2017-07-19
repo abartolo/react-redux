@@ -11,9 +11,8 @@ import {
     ListItemIcon,
     ListItemText,
     Avatar,
+    Icon,
 } from 'material-ui';
-import HomeIcon from 'material-ui-icons/Home';
-import DoneAllIcon from 'material-ui-icons/DoneAll';
 import Routes from '../../routes';
 import './sideMenu.css';
 
@@ -64,7 +63,7 @@ export default class SideMenu extends Component {
                             <Route key={index} path={route.path} exact={route.exact} children={({ match, history, ...props }) => (
                                 <ListItem button className={match ? 'sidemenu-link-selected' : ''} onClick={() => { history.push(route.path) }}>
                                     <ListItemIcon>
-                                        <HomeIcon />
+                                        <Icon>{route.icon}</Icon>
                                     </ListItemIcon>
                                     <ListItemText primary={route.title} />
                                 </ListItem>

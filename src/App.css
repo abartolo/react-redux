@@ -15,3 +15,8 @@
 #app-content-container{
     padding: 0;
 }
+#app-content-page-container{
+    background-color: #fafafa;
+    padding-top: 80px;
+    height: 100%;
+}

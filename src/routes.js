@@ -3,13 +3,13 @@
          path: '/',
          exact: true,
          title: 'Home',
-         icon: 'Home',
+         icon: 'home',
     },
      {
          path: '/todos',
          exact: false,
          title: 'Todos',
-         icon: 'DoneAll',
+         icon: 'done_all',
     },
  ]; 
 

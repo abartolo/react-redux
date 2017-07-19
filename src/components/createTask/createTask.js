@@ -30,7 +30,7 @@ export default class CreateTask extends Component {
 
     render() {
         return (
-            <Grid container gutter={24} align="center" justify="center">
+            <Grid container gutter={0} align="center" justify="center">
                 <Grid item xs={5}>
                     <Paper id="create-task-paper">
                         <Grid container direction="row" align="flex-end" justify="space-between">

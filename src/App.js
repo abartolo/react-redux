@@ -73,8 +73,17 @@ class App extends Component {
             </div>
             <Grid id="app-content-container" item xs>
               <Header titleText="Tapsium Portal" displayHamburger={this.state.displaySideMenuToggle} onToggleSideMenu={() => this.toggleSideMenu()} />
-              <Route exact path="/" component={HomePage} />
-              <Route path="/todos" component={TodoPage} />
+              <Grid id="app-content-page-container"
+                container
+                gutter={0}
+                direction="column"
+                align="stretch"
+                justify="flex-start">
+                <Grid item>
+                  <Route exact path="/" component={HomePage} />
+                  <Route path="/todos" component={TodoPage} />
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
         </BrowserRouter>

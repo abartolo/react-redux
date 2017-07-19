@@ -16,7 +16,7 @@ export default class TasksList extends Component {
 
     render() {
         return (
-            <Grid container gutter={24} align="center" justify="center">
+            <Grid container gutter={0} align="center" justify="center">
                 <Grid item xs={5}>
                     {
                         this.props.tasks.length > 0
