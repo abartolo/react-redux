@@ -16,9 +16,10 @@ class App extends Component {
     super(props);
     this.title = 'Todo Application';
     this.state = {
+      layoutMode: 'desktop',
       sideMenuOpen: true,
       sideMenuDocked: true,
-      displaySideMenuToggle: false,
+      sideMenuDockedCollapsed: false
     };
   }
 
@@ -29,13 +30,21 @@ class App extends Component {
   }
 
   toggleSideMenu() {
-    console.log("Called toggleSideMenu()");
-    this.setState({
-      sideMenuOpen: !this.state.sideMenuOpen
-    });
+    if (this.state.layoutMode === 'desktop') {
+      console.log("Called toggleSideMenu() - desktop mode");
+      this.setState({
+        sideMenuDockedCollapsed: !this.state.sideMenuDockedCollapsed
+      });
+    } else if (this.state.layoutMode === 'mobile') {
+      console.log("Called toggleSideMenu() - mobile mode");
+      this.setState({
+        sideMenuOpen: !this.state.sideMenuOpen
+      });
+    }
   }
 
   closeSideMenu() {
+    console.log("Called closeSideMenu()");
     this.setState({
       sideMenuOpen: false
     });
@@ -45,17 +54,31 @@ class App extends Component {
     if (window.innerWidth >= 960 && this.state.sideMenuDocked !== true) {
       console.log("Dimensions - Greater than 960", window.innerWidth);
       this.setState({
+        layoutMode: 'desktop',
         sideMenuOpen: true,
         sideMenuDocked: true,
-        displaySideMenuToggle: false
+        sideMenuDockedCollapsed: false,
       });
     } else if (window.innerWidth < 960 && this.state.sideMenuDocked === true) {
       console.log("Dimensions - Less than 960", window.innerWidth);
       this.setState({
+        layoutMode: 'mobile',
         sideMenuOpen: false,
         sideMenuDocked: false,
-        displaySideMenuToggle: true
+        sideMenuDockedCollapsed: false,
       });
+    }
+  }
+
+  getSideMenuContainerClass() {
+    if (this.state.sideMenuDocked) {
+      if (this.state.sideMenuDockedCollapsed) {
+        return 'app-sidemenu-container-desktop-collapsed';
+      } else {
+        return 'app-sidemenu-container-desktop';
+      }
+    } else {
+      return 'app-sidemenu-container-mobile';
     }
   }
 
@@ -68,11 +91,18 @@ class App extends Component {
             direction="row"
             align="stretch"
             justify="flex-start">
-            <div id="app-sidemenu-container" className={this.state.sideMenuDocked ? 'app-sidemenu-container-desktop' : 'app-sidemenu-container-mobile'}>
-              <SideMenu open={this.state.sideMenuOpen} docked={this.state.sideMenuDocked} onCloseSideMenu={() => this.closeSideMenu()} />
+            <div id="app-sidemenu-container" className={this.getSideMenuContainerClass()}>
+              <SideMenu
+                open={this.state.sideMenuOpen}
+                docked={this.state.sideMenuDocked}
+                dockedCollapsed={this.state.sideMenuDockedCollapsed}
+                onCloseSideMenu={() => this.closeSideMenu()} />
             </div>
             <Grid id="app-content-container" item xs>
-              <Header titleText="Tapsium Portal" displayHamburger={this.state.displaySideMenuToggle} onToggleSideMenu={() => this.toggleSideMenu()} />
+              <Header
+                docked={this.state.sideMenuDocked}
+                dockedCollapsed={this.state.sideMenuDockedCollapsed}
+                onToggleSideMenu={() => this.toggleSideMenu()} />
               <Grid id="app-content-page-container"
                 container
                 gutter={0}

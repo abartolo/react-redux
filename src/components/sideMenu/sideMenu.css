@@ -1,13 +1,22 @@
 #sidemenu-appbar{
     box-shadow: none;
 }
+#sidemenu-appbar #toolbar{
+    padding: 0 0 0 10px;
+}
 #sidemenu-appbar #logo{
     width: 45;
     height: 45;
-    margin-right: 5px;
+    margin-right: 10px;
 }
 #sidemenu-list{
+    /*width: 250px;*/
+}
+.sidemenu-list-docked{
     width: 250px;
+}
+.sidemenu-list-docked-collapsed{
+    width: 65px;
 }
 .sidemenu-link-selected{
     background-color: #EEEEEE;

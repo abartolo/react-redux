@@ -21,12 +21,22 @@ class Header extends Component {
                 return 'Invalid Page';
         }
     }
+    getHeaderContainerClass() {
+        if (this.props.docked) {
+            if (this.props.dockedCollapsed) {
+                return 'header-container-docked-collapsed';
+            } else {
+                return 'header-container-docked';
+            }
+        }
+        return '';
+    }
 
     render() {
         return (
-            <AppBar id="header-container" position="fixed">
+            <AppBar id="header-container" className={this.getHeaderContainerClass()} position="fixed">
                 <Toolbar>
-                    <IconButton style={{ display: this.props.displayHamburger ? '' : 'none' }} color="contrast" aria-label="Menu" onClick={this.props.onToggleSideMenu}>
+                    <IconButton color="contrast" aria-label="Menu" onClick={this.props.onToggleSideMenu}>
                         <MenuIcon />
                     </IconButton>
                     <Typography type="title" color="inherit">

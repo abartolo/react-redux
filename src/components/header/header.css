@@ -1,8 +1,9 @@
 #header-container{
     width: 100%;
 }
-@media (min-width: 960px){
-    #header-container{
-        width: calc(100% - 250px);
-    }
+.header-container-docked-collapsed{
+    width: calc(100% - 65px) !important;
+}
+.header-container-docked{
+    width: calc(100% - 250px) !important;
 }

@@ -9,6 +9,9 @@
 .app-sidemenu-container-desktop{
     width: 250px;
 }
+.app-sidemenu-container-desktop-collapsed{
+    width: 65px;
+}
 .app-sidemenu-container-mobile{
     width: 0;
 }

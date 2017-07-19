@@ -45,19 +45,22 @@ export default class SideMenu extends Component {
                 onClick={() => { this.props.onCloseSideMenu() }}
             >
                 <AppBar id="sidemenu-appbar" position="static" color="default">
-                    <Toolbar>
+                    <Toolbar id="toolbar">
                         <Avatar
                             id="logo"
                             alt="Tapsium Logo"
                             src="/assets/images/logo.png"
                         />
-                        <Typography type="title" color="inherit">
-                            Tapsium Portal
-                        </Typography>
+                        {this.props.dockedCollapsed ?
+                            null :
+                            <Typography type="title" color="inherit">
+                                Tapsium Portal
+                            </Typography>
+                        }
                     </Toolbar>
                 </AppBar>
                 <Divider />
-                <List id="sidemenu-list" disablePadding>
+                <List id="sidemenu-list" className={this.props.dockedCollapsed ? 'sidemenu-list-docked-collapsed' : 'sidemenu-list-docked'} disablePadding>
                     {
                         Routes.map((route, index) => (
                             <Route key={index} path={route.path} exact={route.exact} children={({ match, history, ...props }) => (
@@ -65,7 +68,10 @@ export default class SideMenu extends Component {
                                     <ListItemIcon>
                                         <Icon>{route.icon}</Icon>
                                     </ListItemIcon>
-                                    <ListItemText primary={route.title} />
+                                    {this.props.dockedCollapsed ?
+                                        null :
+                                        <ListItemText primary={route.title} />
+                                    }
                                 </ListItem>
                             )} />
                         ))
