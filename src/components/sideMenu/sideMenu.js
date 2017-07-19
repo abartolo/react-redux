@@ -4,10 +4,14 @@ import {
     AppBar,
     Toolbar,
     Typography,
+    Drawer,
+    Divider,
+    List,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+    Avatar,
 } from 'material-ui';
-import Drawer from 'material-ui/Drawer';
-import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
-import Divider from 'material-ui/Divider';
 import HomeIcon from 'material-ui-icons/Home';
 import DoneAllIcon from 'material-ui-icons/DoneAll';
 import Routes from '../../routes';
@@ -43,6 +47,11 @@ export default class SideMenu extends Component {
             >
                 <AppBar id="sidemenu-appbar" position="static" color="default">
                     <Toolbar>
+                        <Avatar
+                            id="logo"
+                            alt="Tapsium Logo"
+                            src="/assets/images/logo.png"
+                        />
                         <Typography type="title" color="inherit">
                             Tapsium Portal
                         </Typography>
@@ -51,7 +60,7 @@ export default class SideMenu extends Component {
                 <Divider />
                 <List id="sidemenu-list" disablePadding>
                     {
-                        Routes.map((route,index) =>(
+                        Routes.map((route, index) => (
                             <Route key={index} path={route.path} exact={route.exact} children={({ match, history, ...props }) => (
                                 <ListItem button className={match ? 'sidemenu-link-selected' : ''} onClick={() => { history.push(route.path) }}>
                                     <ListItemIcon>

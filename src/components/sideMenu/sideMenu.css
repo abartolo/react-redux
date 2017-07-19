@@ -1,6 +1,11 @@
 #sidemenu-appbar{
     box-shadow: none;
 }
+#sidemenu-appbar #logo{
+    width: 45;
+    height: 45;
+    margin-right: 5px;
+}
 #sidemenu-list{
     width: 250px;
 }
