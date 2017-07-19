@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 import {
     AppBar,
     Toolbar,
@@ -7,7 +8,19 @@ import {
 } from 'material-ui';
 import MenuIcon from 'material-ui-icons/Menu';
 
-export default class Header extends Component {
+class Header extends Component {
+
+    getRouteTitle(route) {
+        switch (route) {
+            case '/':
+                return 'Home';
+            case '/todos':
+                return 'Todos';
+            default:
+                return 'Invalid Page';
+        }
+    }
+
     render() {
         return (
             <AppBar position="static">
@@ -16,10 +29,12 @@ export default class Header extends Component {
                         <MenuIcon />
                     </IconButton>
                     <Typography type="title" color="inherit">
-                        {this.props.titleText}
+                        {this.getRouteTitle(this.props.location.pathname)}
                     </Typography>
                 </Toolbar>
             </AppBar >
         );
     }
 }
+
+export default withRouter(Header);

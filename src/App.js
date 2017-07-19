@@ -68,7 +68,7 @@ class App extends Component {
             direction="row"
             align="stretch"
             justify="flex-start">
-            <div id="app-sidemenu-container" className={this.state.sideMenuDocked? 'app-sidemenu-container-desktop':'app-sidemenu-container-mobile'}>
+            <div id="app-sidemenu-container" className={this.state.sideMenuDocked ? 'app-sidemenu-container-desktop' : 'app-sidemenu-container-mobile'}>
               <SideMenu open={this.state.sideMenuOpen} docked={this.state.sideMenuDocked} onCloseSideMenu={() => this.closeSideMenu()} />
             </div>
             <Grid id="app-content-container" item xs>

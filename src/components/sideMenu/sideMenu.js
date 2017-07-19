@@ -32,15 +32,6 @@ export default class SideMenu extends Component {
         this.setState({ open: !this.state.open });
     };
 
-    navigationLinks = ({ title, history }) => (
-        <button
-            type="button"
-            onClick={() => history.push('/my-new-location')}
-        >
-            {title}
-        </button>
-    );
-
     render() {
         return (
             <Drawer
