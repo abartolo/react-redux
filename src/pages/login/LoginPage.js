@@ -7,6 +7,7 @@ import {
     Paper,
     Grid,
     TextField,
+    CircularProgress,
 } from 'material-ui';
 import * as authActions from '../../actions/authActions';
 import './LoginPage.css';
@@ -16,11 +17,15 @@ class LoginPage extends Component {
         super(props);
         this.title = 'Login Page';
         this.state = {
-            redirectToReferrer: false
+            redirectToReferrer: false,
+            loading: false,
         };
     }
 
     login() {
+        this.setState({
+            loading: true
+        });
         // Should call API to authenticate user
         setTimeout(() => {
             console.log("Login");
@@ -30,7 +35,7 @@ class LoginPage extends Component {
                 gender: 'male',
             }, "FAKE_TOKEN");
             this.setState({ redirectToReferrer: true });
-        }, 2000);
+        }, 3000);
     }
 
     render() {
@@ -48,30 +53,45 @@ class LoginPage extends Component {
                     direction="row"
                     align="center"
                     justify="center"
-                    gutter={0}
-                >
+                    gutter={0}>
                     <Grid item xs={10} sm={4}>
                         <Paper id="login-container">
-                            <TextField
-                                id="uswin"
-                                label="USWIN"
-                                margin="normal"
-                                fullWidth
-                            />
-                            <TextField
-                                id="password"
-                                label="Password"
-                                type="password"
-                                margin="normal"
-                                fullWidth
-                            />
-                            <Button id="login-button" raised color="primary" onClick={() => this.login()}>
-                                Login
-                            </Button>
+                            {
+                                !this.state.loading ?
+                                    <div>
+                                        <TextField
+                                            id="uswin"
+                                            label="USWIN"
+                                            margin="normal"
+                                            fullWidth />
+                                        <TextField
+                                            id="password"
+                                            label="Password"
+                                            type="password"
+                                            margin="normal"
+                                            fullWidth />
+                                        <Button id="login-button" raised color="primary" onClick={() => this.login()}>
+                                            Login
+                                        </Button>
+                                    </div>
+                                    :
+                                    <Grid item xs={12}>
+                                        <Grid
+                                            container
+                                            direction="row"
+                                            align="center"
+                                            justify="center"
+                                            gutter={0}>
+                                            <Grid id="login-loading" item>
+                                                <CircularProgress size={125} />
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                            }
                         </Paper>
                     </Grid>
                 </Grid>
-            </div>
+            </div >
         )
     }
 }

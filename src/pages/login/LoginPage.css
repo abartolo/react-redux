@@ -2,8 +2,12 @@
     margin-top: 24px;
     padding: 16px;
     max-width: 325px;
+    height: 215px;
 }
 #login-button{
     margin-top: 16px;
     width: 100%;
+}
+#login-loading{
+    margin-top: 45px;
 }
