@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Redirect } from 'react-router-dom';
-import { Button } from 'material-ui';
-import Typography from 'material-ui/Typography';
+import {
+    Button,
+    Paper,
+    Grid,
+    TextField,
+} from 'material-ui';
 import * as authActions from '../../actions/authActions';
 import './LoginPage.css';
 
@@ -39,12 +43,34 @@ class LoginPage extends Component {
         }
         return (
             <div>
-                <Typography type="display4" gutterBottom>
-                    {this.title}
-                </Typography>
-                <Button raised color="primary" onClick={() => this.login()}>
-                    Login
-                </Button>
+                <Grid
+                    container
+                    direction="row"
+                    align="center"
+                    justify="center"
+                    gutter={0}
+                >
+                    <Grid item xs={10} sm={4}>
+                        <Paper id="login-container">
+                            <TextField
+                                id="uswin"
+                                label="USWIN"
+                                margin="normal"
+                                fullWidth
+                            />
+                            <TextField
+                                id="password"
+                                label="Password"
+                                type="password"
+                                margin="normal"
+                                fullWidth
+                            />
+                            <Button id="login-button" raised color="primary" onClick={() => this.login()}>
+                                Login
+                            </Button>
+                        </Paper>
+                    </Grid>
+                </Grid>
             </div>
         )
     }
