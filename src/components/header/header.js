@@ -17,6 +17,8 @@ class Header extends Component {
                 return 'Home';
             case '/todos':
                 return 'Todos';
+            case '/login':
+                return 'Login';
             default:
                 return 'Invalid Page';
         }

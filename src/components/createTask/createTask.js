@@ -41,7 +41,6 @@ export default class CreateTask extends Component {
                                     value={this.state.newTaskName}
                                     onChange={event => this.setState({ newTaskName: event.target.value })}
                                     onKeyPress={event => this.onKeyPress(event)}
-                                    marginForm
                                     fullWidth
                                 />
                             </Grid>

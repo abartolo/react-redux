@@ -3,13 +3,30 @@ import { MuiThemeProvider } from 'material-ui/styles';
 import { Grid } from 'material-ui';
 import {
   BrowserRouter,
-  Route
+  Route,
+  Redirect
 } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Header from './components/header/header';
 import SideMenu from './components/sideMenu/sideMenu';
+import LoginPage from './pages/login/LoginPage';
 import HomePage from './pages/home/HomePage';
 import TodoPage from './pages/todo/TodoPage';
 import './App.css';
+
+const PrivateRoute = ({ component: Component, ...otherProps }) => (
+  <Route {...otherProps} render={props => {
+    return (
+    otherProps.authToken ? (
+      <Component {...props}/>
+    ) : (
+      <Redirect to={{
+        pathname: '/login',
+        state: { from: props.location }
+      }}/>
+    )
+  )}}/>
+);
 
 class App extends Component {
   constructor(props) {
@@ -83,6 +100,7 @@ class App extends Component {
   }
 
   render() {
+    console.log("APP Render",this.props.authToken,this.props.user);
     return (
       <MuiThemeProvider>
         <BrowserRouter>
@@ -111,7 +129,8 @@ class App extends Component {
                 justify="flex-start">
                 <Grid item>
                   <Route exact path="/" component={HomePage} />
-                  <Route path="/todos" component={TodoPage} />
+                  <Route path="/login" component={LoginPage} />
+                  <PrivateRoute path="/todos" component={TodoPage} authToken={this.props.authToken}/>
                 </Grid>
               </Grid>
             </Grid>
@@ -122,4 +141,11 @@ class App extends Component {
   }
 }
 
-export default App;
+function mapStateToProps(state, ownProps) {
+    return {
+        authToken: state.authToken,
+        user: state.user,
+    };
+}
+
+export default connect(mapStateToProps)(App);
